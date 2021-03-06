@@ -4,7 +4,9 @@ FROM nvidia/cuda:11.2.1-base-ubuntu20.04
 # File Author / Maintainer
 LABEL Maintainer Johannes Debler <johannes.debler@curtin.edu.au>
 
-ARG PACKAGE_VERSION=4.4.2
+ARG GUPPY_VERSION=4.4.2
+ARG MEGALODON_VERSION=2.2.10
+
 ARG BUILD_PACKAGES="wget apt-transport-https"
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -32,13 +34,13 @@ RUN apt-get update && \
                         git
     
 
-RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${PACKAGE_VERSION}-1~focal_amd64.deb && \
+RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~focal_amd64.deb && \
     dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${PACKAGE_VERSION}-1~focal_amd64.deb && \
     rm *.deb
 
 RUN pip3 install numpy cython ont_pyguppy_client_lib 
 
-RUN pip3 install megalodon
+RUN pip3 install megalodon==${MEGALODON_VERSION}
 
 RUN git clone https://github.com/nanoporetech/rerio /home/rerio && \
     /home/rerio/download_model.py rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001
