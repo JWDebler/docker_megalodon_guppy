@@ -35,7 +35,7 @@ RUN apt-get update && \
     
 
 RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~focal_amd64.deb && \
-    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${PACKAGE_VERSION}-1~focal_amd64.deb && \
+    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${GUPPY_VERSION}-1~focal_amd64.deb && \
     rm *.deb
 
 RUN pip3 install numpy cython ont_pyguppy_client_lib 
