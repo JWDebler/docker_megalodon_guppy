@@ -7,13 +7,13 @@ LABEL Maintainer Johannes Debler <johannes.debler@curtin.edu.au>
 ARG GUPPY_VERSION=4.4.2
 ARG MEGALODON_VERSION=2.2.10
 
-ARG BUILD_PACKAGES="wget apt-transport-https"
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /home
 
 RUN apt-get update && \
-    apt-get install --yes $BUILD_PACKAGES \
+    apt-get install --yes wget \
+                        apt-transport-https \
                         libcurl4-openssl-dev \
                         libssl-dev \
                         libhdf5-cpp-100 \
@@ -29,28 +29,27 @@ RUN apt-get update && \
                         libboost-iostreams1.65.1 \
                         python3 \
                         python3-pip \
-                        wget \
-                        libnvidia-compute-460-server \
+                        libnvidia-compute-450-server \
                         git \
-                        libz-dev
+                        libz-dev && \
     
 
-RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
-    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
-    rm *.deb
+    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_4.4.2-1~bionic_amd64.deb && \
+    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_4.4.2-1~bionic_amd64.deb && \
+    rm *.deb && \
 
-RUN pip3 install --upgrade pip
+    pip3 install --upgrade pip && \
 
-RUN pip3 install numpy cython ont_pyguppy_client_lib 
+    pip3 install numpy cython ont_pyguppy_client_lib  && \
 
-RUN pip3 install megalodon==${MEGALODON_VERSION}
+    pip3 install megalodon==2.2.10 && \
 
-RUN git clone https://github.com/nanoporetech/rerio /home/rerio && \
-    /home/rerio/download_model.py rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001
+    git clone https://github.com/nanoporetech/rerio /home/rerio && \
+    /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
 
-RUN mkdir -p ont-guppy/bin && \
-    ln -s /usr/bin/guppy_basecall_server /home/ont-guppy/bin/guppy_basecall_server
+    mkdir -p /home/ont-guppy/bin && \
+    ln -s /usr/bin/guppy_basecall_server /home/ont-guppy/bin/guppy_basecall_server && \
 
-RUN apt-get autoremove --purge --yes && \
+    apt-get autoremove --purge --yes && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
