@@ -1,5 +1,5 @@
 # Set the base image to Ubuntu 20.04 and NVIDIA GPU
-FROM nvidia/cuda:10.2-base-ubuntu18.04
+FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
 
 # File Author / Maintainer
 LABEL Maintainer Johannes Debler <johannes.debler@curtin.edu.au>
