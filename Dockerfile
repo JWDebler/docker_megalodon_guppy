@@ -1,5 +1,5 @@
 # Set the base image to Ubuntu 20.04 and NVIDIA GPU
-FROM nvidia/cuda:11.2.1-base-ubuntu20.04
+FROM nvidia/cuda:10.2-base-ubuntu18.04
 
 # File Author / Maintainer
 LABEL Maintainer Johannes Debler <johannes.debler@curtin.edu.au>
@@ -16,27 +16,30 @@ RUN apt-get update && \
     apt-get install --yes $BUILD_PACKAGES \
                         libcurl4-openssl-dev \
                         libssl-dev \
-                        libhdf5-cpp-103 \
+                        libhdf5-cpp-100 \
                         libzmq5 \
-                        libboost-atomic1.71.0 \
-                        libboost-chrono1.71.0 \
-                        libboost-date-time1.71.0 \
-                        libboost-filesystem1.71.0 \
-                        libboost-program-options1.71.0 \
-                        libboost-regex1.71.0 \
-                        libboost-system1.71.0 \
-                        libboost-log1.71.0 \
-                        libboost-iostreams1.71.0 \
+                        libboost-atomic1.65.1 \
+                        libboost-chrono1.65.1 \
+                        libboost-date-time1.65.1 \
+                        libboost-filesystem1.65.1 \
+                        libboost-program-options1.65.1 \
+                        libboost-regex1.65.1 \
+                        libboost-system1.65.1 \
+                        libboost-log1.65.1 \
+                        libboost-iostreams1.65.1 \
                         python3 \
                         python3-pip \
                         wget \
                         libnvidia-compute-460-server \
-                        git
+                        git \
+                        libz-dev
     
 
-RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~focal_amd64.deb && \
-    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${GUPPY_VERSION}-1~focal_amd64.deb && \
+RUN wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
+    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
     rm *.deb
+
+RUN pip3 install --upgrade pip
 
 RUN pip3 install numpy cython ont_pyguppy_client_lib 
 
@@ -51,4 +54,3 @@ RUN mkdir -p ont-guppy/bin && \
 RUN apt-get autoremove --purge --yes && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
