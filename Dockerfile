@@ -32,10 +32,11 @@ RUN apt-get update && \
                         git \
                         libz-dev && \
     
+    cd /home && \
+    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
+    tar -xf ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
 
-    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
-    apt-get install --yes ./ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb --no-install-recommends && \
-    rm *.deb && \
+    rm *.tar.gz && \
 
     pip3 install --upgrade pip && \
 
@@ -45,9 +46,6 @@ RUN apt-get update && \
 
     git clone https://github.com/nanoporetech/rerio /home/rerio && \
     /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
-
-    mkdir -p /home/ont-guppy/bin && \
-    ln -s /usr/bin/guppy_basecall_server /home/ont-guppy/bin/guppy_basecall_server && \
 
     apt-get autoremove --purge --yes && \
     apt-get clean && \
