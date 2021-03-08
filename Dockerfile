@@ -29,7 +29,6 @@ RUN apt-get update && \
                         libboost-iostreams1.65.1 \
                         python3 \
                         python3-pip \
-                        libnvidia-compute-450-server \
                         git \
                         libz-dev && \
     
