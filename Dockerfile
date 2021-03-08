@@ -34,8 +34,8 @@ RUN apt-get update && \
                         libz-dev && \
     
 
-    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_4.4.2-1~bionic_amd64.deb && \
-    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 ont_guppy_4.4.2-1~bionic_amd64.deb && \
+    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb && \
+    apt-get install --yes ./ont_guppy_${GUPPY_VERSION}-1~bionic_amd64.deb --no-install-recommends && \
     rm *.deb && \
 
     pip3 install --upgrade pip && \
