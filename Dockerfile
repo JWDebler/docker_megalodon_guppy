@@ -35,7 +35,9 @@ RUN apt-get update && \
     cd /home && \
     wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
     tar -xf ont-guppy_${GUPPY_VERSION}_linux64.tar.gz && \
-
+    
+    export PATH=/home/ont-guppy/bin:$PATH && \
+    
     rm *.tar.gz && \
 
     pip3 install --upgrade pip && \
