@@ -41,9 +41,6 @@ RUN apt-get update && \
 
     wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh && \
     echo "${CONDA_MD5}  miniconda.sh" > miniconda.md5 && \
-    
-    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py38_4.9.2-Linux-x86_64.sh -O miniconda.sh && \
-    echo "122c8c9beb51e124ab32a0fa6426c656  miniconda.sh" > miniconda.md5 && \
     if ! md5sum --status -c miniconda.md5; then exit 1; fi && \
     mkdir -p /opt && \
     sh miniconda.sh -b -p /opt/conda && \
@@ -66,6 +63,10 @@ RUN apt-get update && \
 
     git clone https://github.com/nanoporetech/rerio /home/rerio && \
     /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
+    /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_5hmC_CpG_v001 && \
+
+    mkdir -p /home/ont-guppy/bin && \
+    ln -s /usr/bin/guppy_basecall_server /home/ont-guppy/bin/guppy_basecall_server && \
 
     apt-get autoremove --purge --yes && \
     apt-get clean && \
