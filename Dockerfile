@@ -10,6 +10,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG CONDA_VERSION=py38_4.9.2
 ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
 
+WORKDIR /home
+
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update && \
