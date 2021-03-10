@@ -63,9 +63,9 @@ RUN apt-get update && \
 
     pip3 install megalodon==${MEGALODON_VERSION} && \
 
-    git clone https://github.com/nanoporetech/rerio /home/rerio && \
-    /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
-    /home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_5hmC_CpG_v001 && \
+    #git clone https://github.com/nanoporetech/rerio /home/rerio && \
+    #/home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
+    #/home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_5hmC_CpG_v001 && \
 
     mkdir -p /home/ont-guppy/bin && \
     ln -s /usr/bin/guppy_basecall_server /home/ont-guppy/bin/guppy_basecall_server && \
