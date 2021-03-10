@@ -4,7 +4,7 @@ FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 # File Author / Maintainer
 MAINTAINER Johannes Debler <johannes.debler@curtin.edu.au>
 
-ARG PACKAGE_VERSION=4.4.2
+ARG GUPPY_VERSION=4.4.2
 ARG MEGALODON_VERSION=2.2.10
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CONDA_VERSION=py38_4.9.2
@@ -55,8 +55,8 @@ RUN apt-get update && \
     /opt/conda/bin/conda clean -afy && \
 
     cd /tmp &&\
-    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${PACKAGE_VERSION}-1~xenial_amd64.deb && \
-    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 /tmp/ont_guppy_${PACKAGE_VERSION}-1~xenial_amd64.deb && \
+    wget -q https://mirror.oxfordnanoportal.com/software/analysis/ont_guppy_${GUPPY_VERSION}-1~xenial_amd64.deb && \
+    dpkg -i --ignore-depends=nvidia-384,libcuda1-384 /tmp/ont_guppy_${GUPPY_VERSION}-1~xenial_amd64.deb && \
     rm *.deb && \
 
     pip3 install numpy cython ont_pyguppy_client_lib  && \
