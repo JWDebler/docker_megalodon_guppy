@@ -8,6 +8,7 @@ ARG GUPPY_VERSION=4.4.2
 ARG MEGALODON_VERSION=2.2.10
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CONDA_VERSION=py38_4.9.2
+ARG SAMTOOLS_VERSION=1.11
 ARG CONDA_MD5=122c8c9beb51e124ab32a0fa6426c656
 
 WORKDIR /home
@@ -62,6 +63,17 @@ RUN apt-get update && \
     pip3 install numpy cython ont_pyguppy_client_lib  && \
 
     pip3 install megalodon==${MEGALODON_VERSION} && \
+    
+    #install samtools so megalodon works with --sort-mappings
+    wget https://github.com/samtools/samtools/releases/download/${SAMTOOLS_VERSION}/samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    tar -xf samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
+    cd samtools-${SAMTOOLS_VERSION} && \
+    ./configure --without-curses --disable-bz2 --disable-lzma && \
+    make  && \
+    make install  && \
+    cd ..  && \
+    rm samtools-${SAMTOOLS_VERSION} && \
+    rm *.bz2 && \
 
     #git clone https://github.com/nanoporetech/rerio /home/rerio && \
     #/home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
