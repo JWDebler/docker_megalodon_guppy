@@ -72,8 +72,7 @@ RUN apt-get update && \
     make  && \
     make install  && \
     cd ..  && \
-    rm samtools-${SAMTOOLS_VERSION} && \
-    rm *.bz2 && \
+    rm samtools-${SAMTOOLS_VERSION}.tar.bz2 && \
 
     #git clone https://github.com/nanoporetech/rerio /home/rerio && \
     #/home/rerio/download_model.py /home/rerio/basecall_models/res_dna_r941_min_modbases_5mC_CpG_v001 && \
