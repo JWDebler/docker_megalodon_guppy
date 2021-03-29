@@ -4,7 +4,7 @@ FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 # File Author / Maintainer
 MAINTAINER Johannes Debler <johannes.debler@curtin.edu.au>
 
-ARG GUPPY_VERSION=4.4.2
+ARG GUPPY_VERSION=4.5.2
 ARG MEGALODON_VERSION=2.2.10
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CONDA_VERSION=py38_4.9.2
